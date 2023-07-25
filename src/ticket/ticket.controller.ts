@@ -4,6 +4,7 @@ import {
   Controller,
   Get,
   Param,
+  ParseIntPipe,
   Post,
   UsePipes,
   ValidationPipe,
@@ -16,7 +17,7 @@ import { CreateTicketDto } from './dto/create.dto';
 export class TicketController {
   constructor(private ticketsService: TicketsService) {}
   @Get(':eventId')
-  getOne(@Param('eventId') eventId: number): Promise<Ticket[]> {
+  getOne(@Param('eventId', ParseIntPipe) eventId: number): Promise<Ticket[]> {
     if (eventId < 1) {
       throw new BadRequestException('eventId < 1');
     }
