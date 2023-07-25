@@ -15,7 +15,6 @@ export class EventController {
   @UsePipes(new ValidationPipe())
   @Post('/')
   create(@Body() dto: CreateDto) {
-    console.log('dto', dto);
-    return this.eventService.save(dto);
+    return this.eventService.create(dto);
   }
 }

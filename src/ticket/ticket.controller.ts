@@ -1,6 +1,16 @@
-import { BadRequestException, Controller, Get, Param } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 import { TicketsService } from './tickets.service';
 import Ticket from './Ticket';
+import { CreateTicketDto } from './dto/create.dto';
 
 @Controller('/tickets')
 export class TicketController {
@@ -11,5 +21,10 @@ export class TicketController {
       throw new BadRequestException('eventId < 1');
     }
     return this.ticketsService.findByEventId(eventId);
+  }
+  @UsePipes(new ValidationPipe())
+  @Post('/')
+  create(@Body() dto: CreateTicketDto) {
+    return this.ticketsService.create(dto);
   }
 }

@@ -9,7 +9,7 @@ export class EventService {
     private eventsRepository: typeof Event,
   ) {}
 
-  async save(dto: CreateDto) {
+  async create(dto: CreateDto) {
     return this.eventsRepository.create({
       title: dto.title,
     });
