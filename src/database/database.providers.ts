@@ -8,11 +8,11 @@ export const databaseProviders = [
     useFactory: async () => {
       const sequelize = new Sequelize({
         dialect: 'postgres',
-        host: 'localhost',
-        port: 5432,
-        username: 'postgres',
-        password: 'postgres',
-        database: 'concert_tickets',
+        host: process.env.DB_HOST || 'localhost',
+        port: parseInt(process.env.DATABASE_PORT, 10) || 5432,
+        username: process.env.DB_USER || 'postgres',
+        password: process.env.DB_PASSWORD,
+        database: process.env.DB_NAME || 'event_tickets',
       });
       sequelize.addModels([Ticket, Event]);
       await sequelize.sync();
